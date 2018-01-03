@@ -58,7 +58,7 @@ RSpec.describe Game, type: :model do
       expect(user.balance).to eq prize
     end
   end
-  
+
   # группа тестов на проверку статуса игры
   context '.status' do
     # перед каждым тестом "завершаем игру"
