@@ -34,7 +34,7 @@ RSpec.describe GameQuestion, type: :model do
       game_question = FactoryGirl.create(:game_question, a: 4, b: 2, c: 1, d: 3)
       expect(game_question.correct_answer_key).to eq 'c'
     end
-    
+
     it 'correct key d' do
       game_question = FactoryGirl.create(:game_question, a: 3, b: 2, c: 4, d: 1)
       expect(game_question.correct_answer_key).to eq 'd'

@@ -6,6 +6,8 @@ RSpec.describe Game, type: :model do
 
   let(:game_w_questions) { FactoryGirl.create(:game_with_questions, user: user) }
 
+  let(:g) {FactoryGirl.create(:game, current_level: 2)}
+
   context 'Game Factory'do
     it 'Game.create_game_for_user! new correct game' do
       generate_questions(60)
@@ -85,6 +87,16 @@ RSpec.describe Game, type: :model do
 
     it ':money' do
       expect(game_w_questions.status).to eq(:money)
+    end
+  end
+
+  context '.current_game_question .previous_level' do
+    it 'current_game_question'do
+      expect(g.current_level).to eq(2)
+    end
+
+    it 'previous_level'do
+      expect(g.previous_level).to eq(1)
     end
   end
 end
