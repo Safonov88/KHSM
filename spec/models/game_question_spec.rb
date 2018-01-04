@@ -24,20 +24,5 @@ RSpec.describe GameQuestion, type: :model do
     it 'correct key b' do
       expect(game_question.correct_answer_key).to eq 'b'
     end
-
-    it 'correct key a' do
-      game_question = FactoryGirl.create(:game_question, a: 1, b: 2, c: 4, d: 3)
-      expect(game_question.correct_answer_key).to eq 'a'
-    end
-
-    it 'correct key c' do
-      game_question = FactoryGirl.create(:game_question, a: 4, b: 2, c: 1, d: 3)
-      expect(game_question.correct_answer_key).to eq 'c'
-    end
-
-    it 'correct key d' do
-      game_question = FactoryGirl.create(:game_question, a: 3, b: 2, c: 4, d: 1)
-      expect(game_question.correct_answer_key).to eq 'd'
-    end
   end
 end
