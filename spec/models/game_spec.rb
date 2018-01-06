@@ -92,7 +92,7 @@ RSpec.describe Game, type: :model do
 
   context '.current_game_question .previous_level' do
     it 'current_game_question'do
-      expect(g.current_level).to eq(2)
+      expect(game_w_questions.current_game_question).to eq game_w_questions.game_questions[game_w_questions.current_level]
     end
 
     it 'previous_level'do
