@@ -92,7 +92,8 @@ RSpec.describe Game, type: :model do
 
   context '.current_game_question .previous_level' do
     it 'current_game_question'do
-      expect(game_w_questions.current_game_question).to eq game_w_questions.game_questions[game_w_questions.current_level]
+      gm = FactoryGirl.create(:game_with_questions, user: user, current_level: 1)
+      expect(gm.current_game_question.question_id).to eq 2
     end
 
     it 'previous_level'do
