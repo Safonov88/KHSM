@@ -23,7 +23,6 @@ RSpec.describe GamesController, type: :controller do
 
     it 'kick answer' do
       put :answer, id: game_w_questions.id
-
       expect(response.status).to eq 302
       expect(response).to redirect_to(new_user_session_path)
       expect(flash[:alert]).to be
@@ -31,7 +30,6 @@ RSpec.describe GamesController, type: :controller do
 
     it 'kick take_money' do
       put :take_money, id: game_w_questions.id
-
       expect(response.status).to eq 302
       expect(response).to redirect_to(new_user_session_path)
       expect(flash[:alert]).to be
@@ -41,6 +39,14 @@ RSpec.describe GamesController, type: :controller do
   context 'Usual user' do
     before(:each) do
       sign_in user
+    end
+
+    it 'incorrect answer' do
+      put :answer, id: game_w_questions.id
+      game = assigns(:game)
+      expect(game.finished?).to be_truthy
+      expect(response).to redirect_to(user_path(game))
+      expect(flash[:alert]).to be
     end
 
     it 'create game' do
