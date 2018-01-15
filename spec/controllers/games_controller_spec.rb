@@ -48,6 +48,7 @@ RSpec.describe GamesController, type: :controller do
       expect(game.finished?).to be_truthy
       expect(response).to redirect_to(user_path(game))
       expect(flash[:alert]).to be
+      expect(game.status).to eq :fail
     end
 
     it 'create game' do
