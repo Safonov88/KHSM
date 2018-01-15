@@ -59,6 +59,8 @@ RSpec.describe Game, type: :model do
       expect(game_w_questions.finished?).to be_truthy
       expect(user.balance).to eq prize
     end
+
+
   end
 
   # группа тестов на проверку статуса игры
