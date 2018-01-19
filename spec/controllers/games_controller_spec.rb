@@ -2,9 +2,9 @@ require 'rails_helper'
 require 'support/my_spec_helper'
 
 RSpec.describe GamesController, type: :controller do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:admin) { FactoryGirl.create(:user, is_admin: true) }
-  let(:game_w_questions) { FactoryGirl.create(:game_with_questions, user: user) }
+  let(:user) {FactoryGirl.create(:user)}
+  let(:admin) {FactoryGirl.create(:user, is_admin: true)}
+  let(:game_w_questions) {FactoryGirl.create(:game_with_questions, user: user)}
 
   context 'Anon' do
     it 'kick from #show' do
@@ -67,7 +67,7 @@ RSpec.describe GamesController, type: :controller do
 
     it '#show game' do
       get :show, id: game_w_questions.id
-      game= assigns(:game)
+      game = assigns(:game)
       expect(game.finished?).to be_falsey
       expect(game.user).to eq(user)
 
@@ -123,7 +123,7 @@ RSpec.describe GamesController, type: :controller do
       expect(game_w_questions.finished?).to be_falsey
 
       # отправляем запрос на создание, убеждаемся что новых Game не создалось
-      expect { post :create }.to change(Game, :count).by(0)
+      expect {post :create}.to change(Game, :count).by(0)
 
       game = assigns(:game) # вытаскиваем из контроллера поле @game
       expect(game).to be_nil
@@ -148,6 +148,21 @@ RSpec.describe GamesController, type: :controller do
       expect(game.audience_help_used).to be_truthy
       expect(game.current_game_question.help_hash[:audience_help]).to be
       expect(game.current_game_question.help_hash[:audience_help].keys).to contain_exactly('a', 'b', 'c', 'd')
+      expect(response).to redirect_to(game_path(game))
+    end
+
+    it 'help_used 50/50' do
+      expect(game_w_questions.current_game_question.help_hash[:fifty_fifty]).not_to be
+      expect(game_w_questions.fifty_fifty_used).to be_falsey
+
+      put :help, id: game_w_questions.id, help_type: :fifty_fifty
+      game = assigns(:game)
+
+      expect(game.finished?).to be_falsey
+      expect(game.fifty_fifty_used).to be_truthy
+      expect(game.current_game_question.help_hash[:fifty_fifty]).to be
+      expect(game.current_game_question.help_hash[:fifty_fifty]).to include 'd'
+      expect(game.current_game_question.help_hash[:fifty_fifty].size).to eq 2
       expect(response).to redirect_to(game_path(game))
     end
   end
