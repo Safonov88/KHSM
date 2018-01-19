@@ -1,5 +1,5 @@
 #  (c) goodprogrammer.ru
-#
+require 'game_help_generator'
 # Игровой вопрос — модель, которая связывает игру и вопрос. При создании новой
 # игры формируется массив из 15 игровых вопросов для конкретной игры.
 class GameQuestion < ActiveRecord::Base
