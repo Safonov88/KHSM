@@ -35,3 +35,6 @@ class GameHelpGenerator
     I18n.t('game_help.friend_call', name: I18n.t('game_help.friends').sample, variant: key.upcase)
   end
 end
+
+
+
